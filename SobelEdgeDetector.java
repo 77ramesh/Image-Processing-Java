@@ -1,23 +1,12 @@
-package application;
+package com.java_face_detection;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class SobelEdgeDetector {
-    public static void main(String args[]) throws IOException {
 
-        System.out.println("Started");
-        /*System.out.println("Enter the file name :");
-        Scanner ne1 = new Scanner(System.in);
-        String filename = ne1.nextLine();*/
-
-        String filename = "C:\\Users\\Ramesh\\Desktop\\opencv\\test_img.jpg";
-
-        File file = new File(filename);
-        BufferedImage image = ImageIO.read(file);
+	public BufferedImage detector(BufferedImage img) {
+		
+        BufferedImage image = img;
 
         int x = image.getWidth();
         int y = image.getHeight();
@@ -28,6 +17,7 @@ public class SobelEdgeDetector {
         for (int i = 1; i < x - 1; i++) {
             for (int j = 1; j < y - 1; j++) {
 
+            	//k nearest neighbor
                 int val00 = getGrayScale(image.getRGB(i - 1, j - 1));
                 int val01 = getGrayScale(image.getRGB(i - 1, j));
                 int val02 = getGrayScale(image.getRGB(i - 1, j + 1));
@@ -70,12 +60,9 @@ public class SobelEdgeDetector {
                 image.setRGB(i, j, edgeColor);
             }
         }
-
-        File outputfile = new File("C:\\Users\\Ramesh\\Desktop\\sobel.png");
-        ImageIO.write(image, "png", outputfile);
-
-        System.out.println("max : " + maxGradient);
-        System.out.println("Finished");
+        
+        return image;
+        
     }
 
     public static int  getGrayScale(int rgb) {
